@@ -172,8 +172,6 @@ Item {
     var results = [], q = query.toLowerCase().trim();
     var hexQuery = q.replace(/^u\+?/i, "");
 
-    Logger.i("UnicodeProvider", "Search query:", q, "namesLoaded:", namesLoaded, "unicodeNames count:", Object.keys(unicodeNames).length);
-
     // Hex codepoint search
     if (/^[0-9a-f]+$/i.test(hexQuery) && hexQuery.length >= 2) {
       var cp = parseInt(hexQuery, 16);
@@ -194,8 +192,6 @@ Item {
         }
       }
     }
-
-    Logger.i("UnicodeProvider", "Search results:", results.length);
 
     // Deduplicate
     var seen = new Set();
@@ -313,7 +309,8 @@ Item {
   function formatCharEntry(charData) {
     var charValue = charData.char;
     var title = charData.name || charData.hex;
-    var desc = charData.name ? charData.hex : getCategoryName(charData.category);
+    var categoryName = getCategoryName(charData.category);
+    var desc = charData.name ? `${charData.hex} • ${categoryName}` : categoryName;
 
     return {
       "name": title,
