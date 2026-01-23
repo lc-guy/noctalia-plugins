@@ -88,6 +88,19 @@ Item {
           }
 
           NIconButton {
+            icon: "settings"
+            tooltipText: "Settings"
+            baseSize: Style.baseWidgetSize * 0.8
+
+            onClicked: {
+              var screen = pluginApi?.panelOpenScreen;
+              if (screen && pluginApi?.manifest) {
+                BarService.openPluginSettings(screen, pluginApi.manifest);
+              }
+            }
+          }
+
+          NIconButton {
             icon: "refresh"
             tooltipText: "Refresh rates"
             baseSize: Style.baseWidgetSize * 0.8
