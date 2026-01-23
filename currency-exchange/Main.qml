@@ -135,26 +135,15 @@ Item {
   // =============================================================================
   // IPC Handler (for keyboard shortcut toggle)
   // =============================================================================
-  // IpcHandler {
-  //   target: "plugin:fx"
-  //   function toggle() {
-  //     pluginApi.withCurrentScreen(screen => {
-  //       var launcherPanel = PanelService.getPanel("launcherPanel", screen);
-  //       if (!launcherPanel)
-  //         return;
-  //       var searchText = launcherPanel.searchText || "";
-  //       var isInFxMode = searchText.startsWith(">fx");
-  //       if (!launcherPanel.isPanelOpen) {
-  //         launcherPanel.open();
-  //         launcherPanel.setSearchText(">fx ");
-  //       } else if (isInFxMode) {
-  //         launcherPanel.close();
-  //       } else {
-  //         launcherPanel.setSearchText(">fx ");
-  //       }
-  //     });
-  //   }
-  // }
+  IpcHandler {
+    target: "plugin:currency-exchange"
+
+    function togglePanel() {
+      pluginApi.withCurrentScreen(screen => {
+        pluginApi.togglePanel(screen);
+      });
+    }
+  }
 
   // Initialize rates on component load
   Component.onCompleted: {
