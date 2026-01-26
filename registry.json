@@ -473,7 +473,7 @@
     {
       "id": "unicode-picker",
       "name": "Unicode Picker",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "official": false,
       "author": "Daddeffe",
       "description": "Browse and search Unicode characters from the launcher",
@@ -484,7 +484,7 @@
         "Launcher",
         "Utility"
       ],
-      "lastUpdated": "2026-01-13T17:31:46-05:00"
+      "lastUpdated": "2026-01-25T17:22:17-08:00"
     },
     {
       "id": "update-count",
