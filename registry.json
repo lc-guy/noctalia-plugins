@@ -246,7 +246,7 @@
     {
       "id": "mpvpaper",
       "name": "Mpvpaper Integration",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "official": false,
       "author": "Spyridon Siarapis",
       "description": "Integration of mpvpaper to control mpvpaper through noctalia",
@@ -256,7 +256,7 @@
       "tags": [
         "System"
       ],
-      "lastUpdated": "2026-01-30T20:04:21+01:00"
+      "lastUpdated": "2026-01-31T19:28:38+01:00"
     },
     {
       "id": "network-indicator",
