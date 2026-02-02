@@ -54,7 +54,7 @@ Item {
   readonly property real capsuleHeight: Style.getCapsuleHeightForScreen(screenName)
   readonly property real barFontSize: Style.getBarFontSizeForScreen(screenName)
 
-  readonly property real contentWidth: isVertical ? capsuleHeight : contentRow.implicitWidth + Style.marginM * 2
+  readonly property real contentWidth: capsuleHeight
   readonly property real contentHeight: capsuleHeight
 
   // Plugin UI scale (per-plugin setting)
@@ -97,6 +97,7 @@ Item {
 
           NIcon {
             id: iconWidget
+            anchors.centerIn: parent
             icon: root.isGenerating ? "loader-2" : "sparkles"
             color: {
               if (root.isGenerating)
