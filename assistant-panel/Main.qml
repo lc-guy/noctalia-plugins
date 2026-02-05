@@ -28,7 +28,10 @@ Item {
   // Cache directory for state (messages, activeTab) - use global noctalia cache
   readonly property string cacheDir: typeof Settings !== 'undefined' && Settings.cacheDir ? Settings.cacheDir + "plugins/assistant-panel/" : ""
   readonly property string stateCachePath: cacheDir + "state.json"
+
   property string activeTab: "ai"  // UI state - persisted to cache
+  property string chatInputText: "" // Chat input state - persisted to cache
+  property int chatInputCursorPosition: 0 // Chat input cursor position - persisted to cache
 
   // Provider configurations
   readonly property var providers: ({
@@ -132,6 +135,8 @@ Item {
 
     root.messages = result.messages;
     root.activeTab = result.activeTab;
+    root.chatInputText = result.chatInputText;
+    root.chatInputCursorPosition = result.chatInputCursorPosition;
     Logger.d("AssistantPanel", "Loaded " + root.messages.length + " messages from cache");
   }
 
@@ -158,7 +163,13 @@ Item {
       ensureCacheDir();
 
       var maxHistory = pluginApi?.pluginSettings?.maxHistoryLength || 100;
-      var dataStr = ProviderLogic.prepareStateForSave(root.messages, root.activeTab, maxHistory);
+      var dataStr = ProviderLogic.prepareStateForSave(
+        root.messages,
+        root.activeTab,
+        maxHistory,
+        root.chatInputText,
+        root.chatInputCursorPosition
+      );
 
       stateCacheFile.setText(dataStr);
     } catch (e) {
@@ -399,12 +410,18 @@ Item {
       if (root.currentResponse.trim() !== "") {
         root.addMessage("assistant", root.currentResponse.trim());
       }
+      root.chatInputText = ""; // Ensure input is cleared after successful generation
+      root.chatInputCursorPosition = 0;
+      root.saveState();
     }
   }
 
   function sendGeminiRequest() {
     var history = buildConversationHistory();
-    var commandData = ProviderLogic.buildGeminiCommand(providers[Constants.Providers.GOOGLE].streamEndpoint, model, apiKey, systemPrompt, history, temperature);
+    var commandData = ProviderLogic.buildGeminiCommand(
+      providers[Constants.Providers.GOOGLE].streamEndpoint,
+      model, apiKey, systemPrompt, history, temperature
+    );
 
     Logger.i("AssistantPanel", "sendGeminiRequest: endpoint=" + commandData.url);
     geminiProcess.buffer = "";
@@ -483,6 +500,9 @@ Item {
       if (root.currentResponse.trim() !== "") {
         root.addMessage("assistant", root.currentResponse.trim());
       }
+      root.chatInputText = ""; // Ensure input is cleared after successful generation
+      root.chatInputCursorPosition = 0;
+      root.saveState();
 
       openaiProcess.buffer = "";
     }

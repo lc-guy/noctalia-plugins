@@ -267,7 +267,9 @@ function processLoadedState(content) {
     var cached = JSON.parse(content);
     return {
       messages: cached.messages || [],
-      activeTab: cached.activeTab || "ai"
+      activeTab: cached.activeTab || "ai",
+      chatInputText: cached.chatInputText || "",
+      chatInputCursorPosition: cached.chatInputCursorPosition || 0
     };
   } catch (e) {
     return {
@@ -276,13 +278,15 @@ function processLoadedState(content) {
   }
 }
 
-function prepareStateForSave(messages, activeTab, maxHistory) {
+function prepareStateForSave(messages, activeTab, maxHistory, chatInputText, chatInputCursorPosition) {
   var maxLog = maxHistory || 100;
   var toSave = messages.slice(-maxLog);
 
   return JSON.stringify({
     messages: toSave,
     activeTab: activeTab,
+    chatInputText: chatInputText || "",
+    chatInputCursorPosition: chatInputCursorPosition || 0,
     timestamp: Math.floor(Date.now() / 1000)
   }, null, 2);
 }
