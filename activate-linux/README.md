@@ -3,20 +3,25 @@
 
 A simple, static message in the bottom right hand corner to remind you that your operating system isn't burdened by such restrictive terms as the likes of Windows.
 
-Allows the user to customize the name to show in place of Linux
+Allows the user to fully customize the text shown in the watermark. Free as in freedom. 🦅
 
 ![Screenshot of the plugin in action](assets/screenshot.png)
 
 ## Usage
 
 - Install and activate the plugin
-- Open the plugin settings to set any preferred name or phrase to display in place of "Linux"
+- Open the plugin settings to change any of the displayed text
 
 ## Requirements
 
 - Noctalia Shell (any version)
 
 ## Changelog
+
+### v1.1.0
+
+- Retrieve OS name from HostService
+- Expand options to allow complete text customization
 
 ### v1.0.0
 
@@ -30,6 +35,6 @@ MIT
 
 ## Authors
 
-- outfoxxed (initial example from quickshell documentation)
+- outfoxxed (initial example [from quickshell documentation](https://git.outfoxxed.me/quickshell/quickshell-examples/src/branch/master/activate_linux))
 - pgattic (port to noctalia-shell)
 
